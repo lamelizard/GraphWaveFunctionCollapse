@@ -4,7 +4,7 @@ This algorithm is based on WaveFunctionCollapse.
 It colors an output graph GO such that all patterns used
 are from the example input graph GI. A pattern is a colored subgraph
 which shape is determined by a small graph GL.
-Some usage examples can be found on the `GitHub page <http://target>`_.TODO set page
+Some usage examples can be found on the `GitHub page <https://github.com/lamelizard/GraphWaveFunctionCollapse>`_.
 We use 'iso' in the API as a short form of 'subgraph isomorphism'.
 
 Example code:

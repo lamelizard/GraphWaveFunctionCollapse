@@ -10,7 +10,7 @@ setup(
           'networkx',
       ],
     python_requires=">=3.0",
-    url='http://github.com/lamelizard/graphwavefunctioncollapse',
+    url='https://github.com/lamelizard/GraphWaveFunctionCollapse',
     license='MIT',
     long_description=open('README.md').read(),
 )
