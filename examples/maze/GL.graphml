@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd">
+  <key attr.name="type" attr.type="long" for="edge" id="d3" />
+  <key attr.name="z" attr.type="long" for="node" id="d2" />
+  <key attr.name="y" attr.type="long" for="node" id="d1" />
+  <key attr.name="x" attr.type="long" for="node" id="d0" />
+  <graph edgedefault="directed" id="gencuboid(2,2,2,False)">
+    <node id="(0, 0, 0)">
+      <data key="d0">0</data>
+      <data key="d1">0</data>
+      <data key="d2">0</data>
+    </node>
+    <node id="(0, 0, 1)">
+      <data key="d0">0</data>
+      <data key="d1">0</data>
+      <data key="d2">1</data>
+    </node>
+    <node id="(0, 1, 0)">
+      <data key="d0">0</data>
+      <data key="d1">1</data>
+      <data key="d2">0</data>
+    </node>
+    <node id="(0, 1, 1)">
+      <data key="d0">0</data>
+      <data key="d1">1</data>
+      <data key="d2">1</data>
+    </node>
+    <node id="(1, 0, 0)">
+      <data key="d0">1</data>
+      <data key="d1">0</data>
+      <data key="d2">0</data>
+    </node>
+    <node id="(1, 0, 1)">
+      <data key="d0">1</data>
+      <data key="d1">0</data>
+      <data key="d2">1</data>
+    </node>
+    <node id="(1, 1, 0)">
+      <data key="d0">1</data>
+      <data key="d1">1</data>
+      <data key="d2">0</data>
+    </node>
+    <node id="(1, 1, 1)">
+      <data key="d0">1</data>
+      <data key="d1">1</data>
+      <data key="d2">1</data>
+    </node>
+    <edge source="(0, 0, 0)" target="(1, 0, 0)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(0, 0, 0)" target="(0, 1, 0)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(0, 0, 0)" target="(0, 0, 1)">
+      <data key="d3">3</data>
+    </edge>
+    <edge source="(0, 0, 1)" target="(1, 0, 1)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(0, 0, 1)" target="(0, 1, 1)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(0, 1, 0)" target="(1, 1, 0)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(0, 1, 0)" target="(0, 1, 1)">
+      <data key="d3">3</data>
+    </edge>
+    <edge source="(0, 1, 0)" target="(0, 0, 0)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(0, 1, 1)" target="(1, 1, 1)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(0, 1, 1)" target="(0, 0, 1)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(1, 0, 0)" target="(1, 1, 0)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(1, 0, 0)" target="(1, 0, 1)">
+      <data key="d3">3</data>
+    </edge>
+    <edge source="(1, 0, 0)" target="(0, 0, 0)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(1, 0, 1)" target="(1, 1, 1)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(1, 0, 1)" target="(0, 0, 1)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(1, 1, 0)" target="(1, 1, 1)">
+      <data key="d3">3</data>
+    </edge>
+    <edge source="(1, 1, 0)" target="(0, 1, 0)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(1, 1, 0)" target="(1, 0, 0)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(1, 1, 1)" target="(0, 1, 1)">
+      <data key="d3">1</data>
+    </edge>
+    <edge source="(1, 1, 1)" target="(1, 0, 1)">
+      <data key="d3">1</data>
+    </edge>
+  </graph>
+</graphml>
