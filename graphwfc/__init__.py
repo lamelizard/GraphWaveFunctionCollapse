@@ -1,4 +1,4 @@
-"""A pzthon implementation of GraphWaveFunctionCollapse
+"""A python implementation of GraphWaveFunctionCollapse
 
 This algorithm is based on WaveFunctionCollapse.
 It colors an output graph GO such that all patterns used
