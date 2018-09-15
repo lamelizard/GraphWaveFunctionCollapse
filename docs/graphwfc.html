@@ -1,0 +1,286 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>graphwfc package &#8212; GraphWFC 0.9.0 documentation</title>
+    <link rel="stylesheet" href="_static/classic.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+  </head><body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">GraphWFC 0.9.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="graphwfc-package">
+<h1>graphwfc package<a class="headerlink" href="#graphwfc-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-graphwfc.GraphWFCState">
+<span id="graphwfc-graphwfcstate-module"></span><h2>graphwfc.GraphWFCState module<a class="headerlink" href="#module-graphwfc.GraphWFCState" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="graphwfc.GraphWFCState.GraphWFCState">
+<em class="property">class </em><code class="descclassname">graphwfc.GraphWFCState.</code><code class="descname">GraphWFCState</code><span class="sig-paren">(</span><em>GO</em>, <em>GI=None</em>, <em>GLs=None</em>, <em>pattern_count_per_GL=None</em>, <em>GI_isos_per_GL=None</em>, <em>GO_isos_per_GL=None</em>, <em>node_attr='color'</em>, <em>edge_attr='type'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>includes everything needed to run GraphWaveFunctionCollapse</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference internal" href="#graphwfc.GraphWFCState.GraphWFCState.GO" title="graphwfc.GraphWFCState.GraphWFCState.GO"><strong>GO</strong></a> – a copy of the input GO but with ‘invisible’ nodes removed. Can be either a Graph or a DiGraph.
+After <code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code> returned True it will be colored.</li>
+<li><a class="reference internal" href="#graphwfc.GraphWFCState.GraphWFCState.iteration_count" title="graphwfc.GraphWFCState.GraphWFCState.iteration_count"><strong>iteration_count</strong></a> – The amount of iterations that :py:meth:run did since the last :py:meth:reset</li>
+<li><a class="reference internal" href="#graphwfc.GraphWFCState.GraphWFCState.invisible_nodes" title="graphwfc.GraphWFCState.GraphWFCState.invisible_nodes"><strong>invisible_nodes</strong></a> – The nodes omitted from GO since they are not targeted by any isomorphism</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="graphwfc.GraphWFCState.GraphWFCState.GO">
+<code class="descname">GO</code><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState.GO" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="graphwfc.GraphWFCState.GraphWFCState.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>GO</em>, <em>GI=None</em>, <em>GLs=None</em>, <em>pattern_count_per_GL=None</em>, <em>GI_isos_per_GL=None</em>, <em>GO_isos_per_GL=None</em>, <em>node_attr='color'</em>, <em>edge_attr='type'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>the constructor sets up the state after 0 iterations</p>
+<p>This will create a GraphWFCState. Since we have to find isomorphisms this can take a while if a GL in GLs is
+‘big’. If available GI_isos_per_GL, GO_isos_per_GL and pattern_count_per_GL can be set
+so they do need to be computed.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>GO</strong> – the output graph to be colored</li>
+<li><strong>GI</strong> – the colored graph used as the example input. Every node must be colored and
+None is not a accepted as color.</li>
+<li><strong>GLs</strong> – the ordered (e.g. a list) graphs that describe the patterns
+(optional if pattern_count_per_GL, GI_isos_per_GL and GO_isos_per_GL are given)</li>
+<li><strong>pattern_count_per_GL</strong> – (optional) a cached return value from helpers.get_patterns()</li>
+<li><strong>GI_isos_per_GL</strong> – (optional) a cached return value from helpers.get_isos()</li>
+<li><strong>GO_isos_per_GL</strong> – (optional) a cached return value from helpers.get_isos()</li>
+<li><strong>node_attr</strong> – the name of the node attribute used as color</li>
+<li><strong>edge_attr</strong> – the name of the edge attribute used to distinguish between edges</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Raises:</th><td class="field-body"><p class="first last"><strong>ValueError</strong> – if OG can’t be colored (if it doesn’t throw it still may be impossible)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="graphwfc.GraphWFCState.GraphWFCState.invisible_nodes">
+<code class="descname">invisible_nodes</code><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState.invisible_nodes" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="graphwfc.GraphWFCState.GraphWFCState.iteration_count">
+<code class="descname">iteration_count</code><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState.iteration_count" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="graphwfc.GraphWFCState.GraphWFCState.reset">
+<code class="descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState.reset" title="Permalink to this definition">¶</a></dt>
+<dd><p>resets the object to the state after the construction</p>
+<p>This is useful if run() runs into a contradiction (it returns false).
+Call this method and and run() can be called again.
+This is not called automatically so that information about the contradiction can be extracted</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="graphwfc.GraphWFCState.GraphWFCState.run">
+<code class="descname">run</code><span class="sig-paren">(</span><em>iter=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>runs GraphWaveFunctionCollapse on the graphs</p>
+<p>After initialising the GraphWFCState, we need to run the GraphWaveFunctionCollapse algorithm using this method.
+It will iterate until a contradiction is observed, colors were determined for all nodes
+or after the given amount of maximal iterations.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>iter</strong> – the maximum amount of GraphWaveFunctionCollapse-iterations. No limiting if negative</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">True if GO has been completely colored, False if a contradiction occurred and nothing if the maximum amount
+of iterations was used up.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-graphwfc.helpers">
+<span id="graphwfc-helpers-module"></span><h2>graphwfc.helpers module<a class="headerlink" href="#module-graphwfc.helpers" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="graphwfc.helpers.get_isos">
+<code class="descclassname">graphwfc.helpers.</code><code class="descname">get_isos</code><span class="sig-paren">(</span><em>GB</em>, <em>GLs</em>, <em>edge_attr='type'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.helpers.get_isos" title="Permalink to this definition">¶</a></dt>
+<dd><p>returns the isomorphisms from every GL in GLs to a node induced subgraph of G as a ordered list of nodes</p>
+<p>This function is used to get the needed isos. Usually called with GI or GO as G.
+While this is called by the GraphWFCState constructor it might be useful
+to call it yourself and cache the results if some graphs are used multiple times.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>GB</strong> – the ‘big’ Graph, GI or GO</li>
+<li><strong>GLs</strong> – the ‘small’ graphs GL in an order (e.g. in a list)</li>
+<li><strong>edge_attr</strong> – the attribute used to decide whether two edges should be considered to be of the same type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the isos in G per LG</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="graphwfc.helpers.get_patterns">
+<code class="descclassname">graphwfc.helpers.</code><code class="descname">get_patterns</code><span class="sig-paren">(</span><em>GI</em>, <em>GLs=None</em>, <em>GI_isos_per_GL=None</em>, <em>node_attr='color'</em>, <em>edge_attr='type'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.helpers.get_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>extracts the patterns from GI for each GL and counts them</p>
+<blockquote>
+<div>This is called by the GraphWFCState constructor. If neither GI nor GLs differ for two GraphWFCStates,
+this can be used to cache the patterns. Its return value can be used as the pattern_count_per_GL parameter.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>GI</strong> – the input Graph to extract the patterns from</li>
+<li><strong>GLs</strong> – the (ordered) GLs to define the ‘shape’ of the patterns</li>
+<li><strong>GI_isos_per_GL</strong> – the cached isos from e.g. get_isos(GI, GL, edge_attr=edge_attr).
+Alternative for the GLs parameter</li>
+<li><strong>node_attr</strong> – the node attribute to be used in GraphWFC</li>
+<li><strong>edge_attr</strong> – the attribute used to decide whether two edges should be considered to be of the same type</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">the patterns found in GI per LG and how often they were found</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-graphwfc">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-graphwfc" title="Permalink to this headline">¶</a></h2>
+<p>A pzthon implementation of GraphWaveFunctionCollapse</p>
+<p>This algorithm is based on WaveFunctionCollapse.
+It colors an output graph GO such that all patterns used
+are from the example input graph GI. A pattern is a colored subgraph
+which shape is determined by a small graph GL.
+Some usage examples can be found on the <a class="reference external" href="http://target">GitHub page</a>.TODO set page
+We use ‘iso’ in the API as a short form of ‘subgraph isomorphism’.</p>
+<p>Example code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">graphwfc</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">GI</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">GI</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}),(</span><span class="mi">2</span><span class="p">,{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}),(</span><span class="mi">3</span><span class="p">,{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}),(</span><span class="mi">4</span><span class="p">,{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">})])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">GL</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">GO</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_tree</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">graphwfc</span><span class="o">.</span><span class="n">GraphWFCState</span><span class="p">(</span><span class="n">GO</span><span class="o">=</span><span class="n">GO</span><span class="p">,</span><span class="n">GLs</span><span class="o">=</span><span class="p">[</span><span class="n">GL</span><span class="p">],</span><span class="n">GI</span><span class="o">=</span><span class="n">GI</span><span class="p">,</span><span class="n">node_attr</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="ow">not</span> <span class="n">S</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
+<span class="gp">... </span>    <span class="n">S</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nx</span><span class="o">.</span><span class="n">write_graphml</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">GO</span><span class="p">,</span> <span class="s2">&quot;out.graphml&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>the out.graphml will contain a tree with 1000 nodes colored in a way
+such that no node with color 2 has a neighbour colored 2 and no
+node colored 3 has a neighbour with color 3. The color is stored in
+the node attribute ‘c’.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">graphwfc package</a><ul>
+<li><a class="reference internal" href="#submodules">Submodules</a></li>
+<li><a class="reference internal" href="#module-graphwfc.GraphWFCState">graphwfc.GraphWFCState module</a></li>
+<li><a class="reference internal" href="#module-graphwfc.helpers">graphwfc.helpers module</a></li>
+<li><a class="reference internal" href="#module-graphwfc">Module contents</a></li>
+</ul>
+</li>
+</ul>
+
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/graphwfc.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">GraphWFC 0.9.0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2018, Florian Drux.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.7.2.
+    </div>
+  </body>
+</html>
