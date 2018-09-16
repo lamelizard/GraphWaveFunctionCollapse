@@ -9,9 +9,9 @@ Below are some examples:
 
 ![overview.png](/examples/overview.png)
 
-The second example from the top (starcave) uses graphs to simulate [WFC](https://github.com/mxgmn/WaveFunctionCollapse) with N=3.
 In the /examples directoy all graphs (*GI*,*GL* and *GO*) can be found as GraphML files.
 To display GraphML files you might want to check out [Gephi](https://gephi.org), [Tulip](http://tulip.labri.fr/TulipDrupal) and/or [Cytoscape](http://www.cytoscape.org/).
+The second example from the top (starcave) uses graphs to simulate [WFC](https://github.com/mxgmn/WaveFunctionCollapse) with N=3.
 
 ## Algorithm
 The general idea is similar to [WFC](https://github.com/mxgmn/WaveFunctionCollapse):
@@ -36,7 +36,7 @@ While this package was meant to be used standalone with `python python -m graphw
 * We use GraphML files for the graphs.
 * The API accepts [networkx](https://networkx.github.io/) (DI)Graphs. Don't mix Graphs and DiGraphs.
 
-Example Code
+Example code
 ```python
 import networkx as nx
 import graphwfc
