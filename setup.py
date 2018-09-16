@@ -1,5 +1,4 @@
-from distutils.core import setup
-import setuptools
+from setuptools import setup
 
 setup(
     name='GraphWaveFunctionCollapse',
