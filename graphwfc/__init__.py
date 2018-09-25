@@ -21,10 +21,10 @@ Example code:
 ...
 >>> nx.write_graphml(S.GO, "out.graphml")
 
-the out.graphml will contain a tree with 1000 nodes colored in a way
-such that no node with color 2 has a neighbour colored 2 and no
-node colored 3 has a neighbour with color 3. The color is stored in
-the node attribute 'c'.
+GI is the graph 1 -- 1 -- 2 -- 3 and GL is a -- b where a and b have no color.  
+We extract the patterns 1 -- 1, 1 -- 2 and 2 -- 3.  
+GO will only contain the extracted patterns. As such the out.graphml will contain a tree with 1000 nodes colored in a way
+such that no node with color 2 has a neighbour colored 2 and no node colored 3 has a neighbour with color 3 or 1. The color will be stored in the node attribute 'c'.
 
 """
 from .GraphWFCState import GraphWFCState

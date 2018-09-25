@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='GraphWFC',
-    version='0.9.2',
+    version='0.9.3',
 	author="lamelizard",
     author_email="florian.drux@rwth-aachen.de",
     description='Colors a networkx (Di)Graph based on patterns extracted from an colored example (Di)Graph',

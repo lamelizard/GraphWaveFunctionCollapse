@@ -52,7 +52,7 @@
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Variables:</th><td class="field-body"><ul class="first last simple">
-<li><a class="reference internal" href="#graphwfc.GraphWFCState.GraphWFCState.GO" title="graphwfc.GraphWFCState.GraphWFCState.GO"><strong>GO</strong></a> – a copy of the input GO but with ‘invisible’ nodes removed. Can be either a Graph or a DiGraph.
+<li><a class="reference internal" href="#graphwfc.GraphWFCState.GraphWFCState.GO" title="graphwfc.GraphWFCState.GraphWFCState.GO"><strong>GO</strong></a> – a copy of the input GO but with ‘invisible’ nodes removed.
 After <code class="xref py py-func docutils literal notranslate"><span class="pre">run()</span></code> returned True it will be colored.</li>
 <li><a class="reference internal" href="#graphwfc.GraphWFCState.GraphWFCState.iteration_count" title="graphwfc.GraphWFCState.GraphWFCState.iteration_count"><strong>iteration_count</strong></a> – The amount of iterations that :py:meth:run did since the last :py:meth:reset</li>
 <li><a class="reference internal" href="#graphwfc.GraphWFCState.GraphWFCState.invisible_nodes" title="graphwfc.GraphWFCState.GraphWFCState.invisible_nodes"><strong>invisible_nodes</strong></a> – The nodes omitted from GO since they are not targeted by any isomorphism</li>
@@ -119,7 +119,7 @@ This is not called automatically so that information about the contradiction can
 
 <dl class="method">
 <dt id="graphwfc.GraphWFCState.GraphWFCState.run">
-<code class="descname">run</code><span class="sig-paren">(</span><em>iter=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState.run" title="Permalink to this definition">¶</a></dt>
+<code class="descname">run</code><span class="sig-paren">(</span><em>iter: int = -1</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.GraphWFCState.GraphWFCState.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>runs GraphWaveFunctionCollapse on the graphs</p>
 <p>After initialising the GraphWFCState, we need to run the GraphWaveFunctionCollapse algorithm using this method.
 It will iterate until a contradiction is observed, colors were determined for all nodes
@@ -144,7 +144,7 @@ of iterations was used up.</td>
 <span id="graphwfc-helpers-module"></span><h2>graphwfc.helpers module<a class="headerlink" href="#module-graphwfc.helpers" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="graphwfc.helpers.get_isos">
-<code class="descclassname">graphwfc.helpers.</code><code class="descname">get_isos</code><span class="sig-paren">(</span><em>GB</em>, <em>GLs</em>, <em>edge_attr='type'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.helpers.get_isos" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">graphwfc.helpers.</code><code class="descname">get_isos</code><span class="sig-paren">(</span><em>GB: networkx.classes.digraph.DiGraph</em>, <em>GLs</em>, <em>edge_attr='type'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.helpers.get_isos" title="Permalink to this definition">¶</a></dt>
 <dd><p>returns the isomorphisms from every GL in GLs to a node induced subgraph of G as a ordered list of nodes</p>
 <p>This function is used to get the needed isos. Usually called with GI or GO as G.
 While this is called by the GraphWFCState constructor it might be useful
@@ -169,7 +169,7 @@ to call it yourself and cache the results if some graphs are used multiple times
 
 <dl class="function">
 <dt id="graphwfc.helpers.get_patterns">
-<code class="descclassname">graphwfc.helpers.</code><code class="descname">get_patterns</code><span class="sig-paren">(</span><em>GI</em>, <em>GLs=None</em>, <em>GI_isos_per_GL=None</em>, <em>node_attr='color'</em>, <em>edge_attr='type'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.helpers.get_patterns" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">graphwfc.helpers.</code><code class="descname">get_patterns</code><span class="sig-paren">(</span><em>GI: networkx.classes.digraph.DiGraph</em>, <em>GLs=None</em>, <em>GI_isos_per_GL=None</em>, <em>node_attr='color'</em>, <em>edge_attr='type'</em><span class="sig-paren">)</span><a class="headerlink" href="#graphwfc.helpers.get_patterns" title="Permalink to this definition">¶</a></dt>
 <dd><p>extracts the patterns from GI for each GL and counts them</p>
 <blockquote>
 <div>This is called by the GraphWFCState constructor. If neither GI nor GLs differ for two GraphWFCStates,
@@ -203,15 +203,15 @@ Alternative for the GLs parameter</li>
 It colors an output graph GO such that all patterns used
 are from the example input graph GI. A pattern is a colored subgraph
 which shape is determined by a small graph GL.
-Some usage examples can be found on the <a class="reference external" href="http://target">GitHub page</a>.TODO set page
+Some usage examples can be found on the <a class="reference external" href="https://github.com/lamelizard/GraphWaveFunctionCollapse">GitHub page</a>.
 We use ‘iso’ in the API as a short form of ‘subgraph isomorphism’.</p>
 <p>Example code:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">graphwfc</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">GI</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">GI</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">),(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">)])</span><span class="o">.</span><span class="n">to_directed</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">GI</span><span class="o">.</span><span class="n">add_nodes_from</span><span class="p">([(</span><span class="mi">1</span><span class="p">,{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}),(</span><span class="mi">2</span><span class="p">,{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">1</span><span class="p">}),(</span><span class="mi">3</span><span class="p">,{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">2</span><span class="p">}),(</span><span class="mi">4</span><span class="p">,{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="mi">3</span><span class="p">})])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">GL</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">GO</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_tree</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">GL</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">([(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">)])</span><span class="o">.</span><span class="n">to_directed</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">GO</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">random_tree</span><span class="p">(</span><span class="mi">1000</span><span class="p">)</span><span class="o">.</span><span class="n">to_directed</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">S</span> <span class="o">=</span> <span class="n">graphwfc</span><span class="o">.</span><span class="n">GraphWFCState</span><span class="p">(</span><span class="n">GO</span><span class="o">=</span><span class="n">GO</span><span class="p">,</span><span class="n">GLs</span><span class="o">=</span><span class="p">[</span><span class="n">GL</span><span class="p">],</span><span class="n">GI</span><span class="o">=</span><span class="n">GI</span><span class="p">,</span><span class="n">node_attr</span><span class="o">=</span><span class="s1">&#39;c&#39;</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">while</span> <span class="ow">not</span> <span class="n">S</span><span class="o">.</span><span class="n">run</span><span class="p">():</span>
 <span class="gp">... </span>    <span class="n">S</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>
@@ -219,10 +219,10 @@ We use ‘iso’ in the API as a short form of ‘subgraph isomorphism’.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">nx</span><span class="o">.</span><span class="n">write_graphml</span><span class="p">(</span><span class="n">S</span><span class="o">.</span><span class="n">GO</span><span class="p">,</span> <span class="s2">&quot;out.graphml&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>the out.graphml will contain a tree with 1000 nodes colored in a way
-such that no node with color 2 has a neighbour colored 2 and no
-node colored 3 has a neighbour with color 3. The color is stored in
-the node attribute ‘c’.</p>
+<p>GI is the graph 1 – 1 – 2 – 3 and GL is a – b where a and b have no color.  
+We extract the patterns 1 – 1, 1 – 2 and 2 – 3.  
+GO will only contain the extracted patterns. As such the out.graphml will contain a tree with 1000 nodes colored in a way
+such that no node with color 2 has a neighbour colored 2 and no node colored 3 has a neighbour with color 3 or 1. The color will be stored in the node attribute ‘c’.</p>
 </div>
 </div>
 
