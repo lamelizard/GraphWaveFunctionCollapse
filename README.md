@@ -19,9 +19,12 @@ The general idea is similar to [WFC](https://github.com/mxgmn/WaveFunctionCollap
 2. Initially *every* node in *GO* is colored in *all* colors.
 3. We remove all the nodes from *GO* that are not in an subgraph isomorphism (with *GL*). We won't color them (see the top-left and the bottom-rigth hexagon of the first example from the top).
 4. Patterns can be applied to all subgraphs of *GO* isomorph to *GL*:
-    1. We select an isomorphism in *GO* that has a low Shannon entropy bigger than 0; We can select from all patterns that are applicable regarding the current coloring of the nodes. The probability of an applicable pattern is the relative amount of  occurrences of that pattern in *GI*. If all nodes are colored in exactly one color we stop and output the colored *GO*.
+    1. We select an isomorphism in *GO* that has a low Shannon entropy bigger than 0; 
+        * We can select from all patterns that are applicable regarding the current coloring of the nodes. 
+        * The probability of an applicable pattern is the relative amount of occurrences of that pattern in *GI*. 
+        * If all nodes are colored in exactly one color we stop and output the colored *GO*.
     2. We apply a pattern to the selected isomorphism by having the respective nodes colored in *only* the respective color given by the pattern.
-    3. We use constraint propagation to remove colors from nodes in *GO* that are not possible anymore given the current coloring. If we removed all colors from a node, it's a conradiction and we stop without output.
+    3. We use constraint propagation to remove colors from nodes in *GO* that are not possible anymore given the current coloring. If we removed all colors from a node, it's a contradiction and we stop without output.
 
 ## Usage
 Install with `pip install graphwfc` or after downloading this repo `python setup.py install`.
@@ -36,7 +39,7 @@ While this package was meant to be used standalone with `python python -m graphw
 * Instead of *GL* we use *GLs*, we allow to use more than one graph to extract and apply patterns.
 * We use GraphML files for the graphs.
 * The API accepts [networkx](https://networkx.github.io/) (DI)Graphs. Don't mix Graphs and DiGraphs.
-* Since this package uses the [networkx](https://networkx.github.io/) implemetation of VF2 to to find subgraph isomorphisms, only those of node induced subgraphs are used.
+* Since this package uses the [networkx](https://networkx.github.io/) implemetation of VF2 to find subgraph isomorphisms, only those of node induced subgraphs are used.
 
 Example code
 ```python
@@ -51,10 +54,14 @@ while not S.run():  # might never end -> in real code you should stop after some
     S.reset()
 nx.write_graphml(S.GO, "out.graphml")
 ```
+*GI* is the graph `1 -- 1 -- 2 -- 3` and *GL* is `a -- b` where *a* and *b* have no color.
+We extract the patterns `1 -- 1`, `1 -- 2` and `2 -- 3`. 
 The out.graphml will contain a tree with 1000 nodes colored in a way
 such that no node with color *2* has a neighbour colored *2* and no
-node colored *3* has a neighbour with color *3*. The color will be stored in
+node colored *3* has a neighbour with color *3* or *1*. The color will be stored in
 the node attribute 'c'.
+
+**Fun Fact**: This example is an [arc consistency](https://en.wikipedia.org/wiki/Local_consistency#Arc_consistency) problem. In this case GraphWaveFunctionCollapse's constraint propagation will behave somewhat similar to the [AC-3](https://en.wikipedia.org/wiki/AC-3_algorithm) algorithm.
 
 ## Remarks
 Undirected Graphs are nearly untested. Since edges are only used to get subgraph isomorphisms this _should_ be fine.
