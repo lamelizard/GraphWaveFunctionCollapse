@@ -1,6 +1,7 @@
 # GraphWaveFunctionCollapse (GWFC)
 
-A python 3.x package to color a graph based on patterns extracted from an colored example graph based on [WaveFunctionCollapse](https://github.com/mxgmn/WaveFunctionCollapse).
+A python 3.x package to color a graph based on patterns extracted from an colored example graph, it's based on [WaveFunctionCollapse](https://github.com/mxgmn/WaveFunctionCollapse).
+I wrote a [thesis](/thesis.pdf) on the algorithm (in German).
 
 Below are some examples:
 * On the left side the example input can be seen which was converted into the input graph *GI*.
