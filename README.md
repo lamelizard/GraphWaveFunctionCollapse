@@ -39,7 +39,7 @@ While this package was meant to be used standalone with `python -m graphwfc` an 
 *Remarks*:
 * Instead of *GL* we use *GLs*, we allow to use more than one graph to extract and apply patterns.
 * We use GraphML files for the graphs.
-* The API accepts [networkx](https://networkx.github.io/) (DI)Graphs. Don't mix Graphs and DiGraphs.
+* The API accepts [networkx](https://networkx.github.io/) (Di)Graphs. Don't mix Graphs and DiGraphs.
 * Since this package uses the [networkx](https://networkx.github.io/) implemetation of VF2 to find subgraph isomorphisms, only those of node induced subgraphs are used.
 * Undirected Graphs are nearly untested. Since edges are only used to get subgraph isomorphisms this _should_ be fine.
 
