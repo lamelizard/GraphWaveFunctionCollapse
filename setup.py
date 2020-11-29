@@ -2,13 +2,13 @@ from setuptools import setup
 
 setup(
     name='GraphWFC',
-    version='0.9.3',
+    version='0.9.4',
 	author="lamelizard",
     author_email="florian.drux@rwth-aachen.de",
     description='Colors a networkx (Di)Graph based on patterns extracted from an colored example (Di)Graph',
     packages=['graphwfc',],
     install_requires=[
-          'networkx',
+          'networkx<=2.4',
       ],
     python_requires=">=3.0",
     url='https://github.com/lamelizard/GraphWaveFunctionCollapse',

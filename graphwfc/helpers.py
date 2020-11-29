@@ -4,10 +4,10 @@ from networkx.algorithms import isomorphism
 from collections import defaultdict
 
 
-def get_isos(GB: DiGraph, GLs, edge_attr='type'):
-    """returns the isomorphisms from every GL in GLs to a node induced subgraph of G as a ordered list of nodes
+def get_isos(GB, GLs, edge_attr='type'):
+    """returns the isomorphisms from every GL in GLs to a node induced subgraph of GB as a ordered list of nodes
 
-    This function is used to get the needed isos. Usually called with GI or GO as G.
+    This function is used to get the needed isos. Usually called with GI or GO as GB.
     While this is called by the GraphWFCState constructor it might be useful
     to call it yourself and cache the results if some graphs are used multiple times.
 
@@ -25,7 +25,12 @@ def get_isos(GB: DiGraph, GLs, edge_attr='type'):
             iso_count = 0
         order = sorted(GL.nodes())
         edgetest = isomorphism.categorical_edge_match(edge_attr, -1)
-        matcher = isomorphism.DiGraphMatcher(GB, GL, edge_match=edgetest)
+        if nx.is_directed(GB) and nx.is_directed(GL):
+            matcher = isomorphism.DiGraphMatcher(GB, GL, edge_match=edgetest)
+        elif (not nx.is_directed(GB)) and (not nx.is_directed(GL)):
+            matcher = isomorphism.GraphMatcher(GB, GL, edge_match=edgetest)
+        else:
+            raise TypeError('You may not use both directed and undirected graphs.')
         iso_list = list()
         for iso_GBtoGL in matcher.subgraph_isomorphisms_iter():
             iso_GLtoGB = {GL_node: GB_node for GB_node, GL_node in iso_GBtoGL.items()}
@@ -40,7 +45,7 @@ def get_isos(GB: DiGraph, GLs, edge_attr='type'):
     return GB_isos_per_GL
 
 
-def get_patterns(GI: DiGraph, GLs=None, GI_isos_per_GL=None, node_attr='color', edge_attr='type'):
+def get_patterns(GI, GLs=None, GI_isos_per_GL=None, node_attr='color', edge_attr='type'):
     """extracts the patterns from GI for each GL and counts them
 
         This is called by the GraphWFCState constructor. If neither GI nor GLs differ for two GraphWFCStates,
