@@ -48,17 +48,32 @@ Example code
 import networkx as nx
 import graphwfc
 GI = nx.Graph([(1,2),(2,3),(3,4)])
-GI.add_nodes_from([(1,{'c':1}),(2,{'c':1}),(3,{'c':2}),(4,{'c':3})])
+GI.add_nodes_from([(1,{'c':'b'}),(2,{'c':'b'}),(3,{'c':'r'}),(4,{'c':'y'})])
 GL = nx.Graph([(1,2)])
-GO = nx.random_tree(1000)
+GO = nx.random_tree(40)
 S = graphwfc.GraphWFCState(GO=GO,GLs=[GL],GI=GI,node_attr='c')
-while not S.run():  # might never end -> in real code you should stop after some tries
+while not S.run():
     S.reset()
+```
+*GI* is the graph `blue -- blue -- red -- yellow` (`'b' -- 'b' -- 'r' -- 'y'`).
+*GL* is `1 -- 2` where *1* and *2* have no color.
+We extract the patterns `blue -- blue`, `blue -- red` and `red -- yellow`.
+
+*GO* will only contain the extracted patterns. As such the *GO* will be a tree with 40 nodes colored in a way
+such that no red node has a red neighbour and no yellow node has a neighbour with that is yellow or blue. The color will be stored in the node attribute 'c'.
+
+![api_basic_out.png](/examples/python_api_basic/api_basic_out.png)
+
+You can either save the output with 
+```python  
 nx.write_graphml(S.GO, "out.graphml")
 ```
-*GI* is the graph `1 -- 1 -- 2 -- 3` and *GL* is `a -- b` where *a* and *b* have no color.  
-We extract the patterns `1 -- 1`, `1 -- 2` and `2 -- 3`.  
-*GO* will only contain the extracted patterns. As such the out.graphml will contain a tree with 1000 nodes colored in a way
-such that no node with color *2* has a neighbour colored *2* and no node colored *3* has a neighbour with color *3* or *1*. The color will be stored in the node attribute 'c'.
+Or you can visualize it with [matplotlib](https://matplotlib.org) (`pip install matplotlib`)
+```python  
+import matplotlib.pyplot as plt
+colors = list(nx.get_node_attributes(S.GO,'c').values())
+nx.draw(S.GO, node_color=colors, node_size=100)
+plt.show()
+```
 
 **Fun Fact**: This example is an [arc consistency](https://en.wikipedia.org/wiki/Local_consistency#Arc_consistency) problem. In this case GraphWaveFunctionCollapse's constraint propagation will behave somewhat similar to the [AC-3](https://en.wikipedia.org/wiki/AC-3_algorithm) algorithm.
