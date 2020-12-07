@@ -111,8 +111,21 @@ class GraphWFCState:
         self.GO = self._GO_backup.copy()
 
         # set possible colors per node
+        # the color of GO or
+        # all colors if node in GO uncolored
+        removed_values_per_node = dict()
+        isos_to_propagate_per_GL = [set() for GL_id in range(self._GL_count)]
         for node in self.GO.nodes():
-            self._values_per_node[node] = self._all_colors.copy()
+            if self._node_attr in self.GO.nodes[node]:
+                color_as_set = set([self.GO.nodes[node][self._node_attr]]) # a set of one color
+                assert color_as_set.issubset(self._all_colors)
+                self._values_per_node[node] = color_as_set
+                removed_values_per_node[node] = self._all_colors.copy() - color_as_set
+                for GL_id in range(self._GL_count):
+                    for iso in self._isos_per_node[node][GL_id]:
+                        isos_to_propagate_per_GL[GL_id].add(iso)
+            else:
+                self._values_per_node[node] = self._all_colors.copy()
 
         # set initially all patterns to allowed in all isos per GL and the respective iso entropies
         self._patterns_per_GL_per_iso = [{} for GL_id in range(self._GL_count)]
@@ -123,11 +136,14 @@ class GraphWFCState:
                 # TODO, if I start with all possible patterns, then this entroy is allways the same
                 self._iso_entropies_per_GL[GL_id][iso] = self._iso_entropy_per_GL(GL_id, iso)
 
-        # constraint propagation -> remove some unallowed colors per node and patterns per iso
+        # constraint propagation
         try:
+            # remove unallowed patterns. they exist if GO was partially colored
+            self._propagate_isos(isos_to_propagate_per_GL, removed_values_per_node)
+            # remove some unallowed colors per node and patterns per iso
             self._propagate(self.GO.nodes())
         except _Contradiction as contradiction:
-            raise ValueError("the input GO contains unallowed patterns, or isos have no allowed patterns , e.g. at: " +
+            raise ValueError("the input GO contains unallowed patterns or isos has no allowed patterns, e.g. at: " +
                              str(contradiction.location))
 
         # reset iteration count
@@ -145,7 +161,7 @@ class GraphWFCState:
         allowedvalues_per_iso = [self._values_per_node[node]]  # it will always be a subset of this
         for GL_id in range(self._GL_count):
             for iso in self._isos_per_node[node][GL_id]:
-                # should safre index per node and iso, seems to be expensive?
+                # should safe index per node and iso, seems to be expensive?
                 value_id = iso.index(node)
                 allowedvalues_per_iso.append(
                     {pattern[value_id] for pattern in self._patterns_per_GL_per_iso[GL_id][iso]})

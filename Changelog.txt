@@ -1,0 +1,9 @@
+0.9.5
+
+- allow for the input GO to be partially colored
+
+
+0.9.4
+
+- bug fix
+
