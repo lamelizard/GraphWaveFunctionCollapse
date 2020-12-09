@@ -110,17 +110,29 @@ class GraphWFCState:
         # create new GO
         self.GO = self._GO_backup.copy()
 
+        # get colors from GO
+        # TODO, should be cached
+        GO_node_colors = dict()
+        for node in self.GO.nodes():
+            if self._node_attr in self.GO.nodes[node]:
+                color_attribute = self.GO.nodes[node][self._node_attr]
+                if color_attribute in self._all_colors:
+                    GO_node_colors[node] = set([color_attribute]) # set with one color
+                else:
+                    GO_node_colors[node] = set(color_attribute)
+                if not GO_node_colors[node] <= self._all_colors:
+                    raise ValueError("the input GO contains colors not found in GI, e.g. at: " +
+                             str(node) + ", value: " + str(GO_node_colors[node]))
+        
         # set possible colors per node
         # the color of GO or
         # all colors if node in GO uncolored
         removed_values_per_node = dict()
         isos_to_propagate_per_GL = [set() for GL_id in range(self._GL_count)]
         for node in self.GO.nodes():
-            if self._node_attr in self.GO.nodes[node]:
-                color_as_set = set([self.GO.nodes[node][self._node_attr]]) # a set of one color
-                assert color_as_set.issubset(self._all_colors)
-                self._values_per_node[node] = color_as_set
-                removed_values_per_node[node] = self._all_colors.copy() - color_as_set
+            if node in GO_node_colors:
+                self._values_per_node[node] = GO_node_colors[node]
+                removed_values_per_node[node] = self._all_colors.copy() - GO_node_colors[node]
                 for GL_id in range(self._GL_count):
                     for iso in self._isos_per_node[node][GL_id]:
                         isos_to_propagate_per_GL[GL_id].add(iso)
@@ -183,8 +195,7 @@ class GraphWFCState:
                         isos_to_propagate_per_GL[GL_id].add(iso)
             if len(new_colors) == 0:
                 raise _Contradiction(node)  # we can't fill GO with given patterns in the current state
-            if len(new_colors) == 1 and \
-                    (self._node_attr not in self.GO.nodes[node] or self.GO.nodes[node][self._node_attr] is None):
+            if len(new_colors) == 1:
                 # we have the final color for this node and set it in GO
                 self.GO.nodes[node][self._node_attr] = next(iter(new_colors))  # extract the only element
         return isos_to_propagate_per_GL, removed_values_per_node
