@@ -14,7 +14,7 @@ def get_isos(GB, GLs, edge_attr='type'):
     :param GB: the 'big' Graph, GI or GO
     :param GLs: the 'small' graphs GL in an order (e.g. in a list)
     :param edge_attr: the attribute used to decide whether two edges should be considered to be of the same type
-    :return: the isos in G per LG
+    :return: the isos in GB per LG
     """
 
     GB_isos_per_GL = list()
